@@ -8,3 +8,6 @@ html{
 div{
 	height: 100%;
 }
+#query-on-demand-indicator-element{
+	display: none;
+}

@@ -1,10 +1,17 @@
 import styled from '@emotion/styled';
 import * as React from "react";
 import { AiOutlineClose } from 'react-icons/ai';
-import { BiEraser } from 'react-icons/bi';
-import { BsPauseFill, BsPencil, BsPlayFill } from 'react-icons/bs';
+import { BsPauseFill, BsPlayFill } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+const actionType = {
+	UpdateSquare: "UPDATE_SQUARE",
+	ClearArray: "CLEAR_ARRAY",
+	ToggleGame: "TOGGLE_GAME",
+	IncrementIterationCount: "INCREMENT_ITERATION_COUNT"
+}
 
-export default function Header() {
+export default function Header(props) {
+
 	const Container = styled.div`
 		background-color: #2B2D42;
 		width: 100%;
@@ -29,12 +36,39 @@ export default function Header() {
 			}
 		}
 	`;
+	const [play, setPlay] = React.useState(true);
+	const dispatch = useDispatch();
+	const playPauseGame = () => {
+		dispatch({ type: actionType.ToggleGame });
+		dispatch({ type: actionType.IncrementIterationCount });
+		setPlay(!play);
+	}
 
 	return (<Container>
-		<div><BsPencil /></div>
-		<div><BiEraser /></div>
-		<div><BsPlayFill /></div>
-		<div style={{ display: 'none' }}><BsPauseFill /></div>
-		<div><AiOutlineClose /></div>
+
+		<div onClick={() => {
+			playPauseGame();
+		}} onKeyDown={(event) => {
+				if (event.key === 'p') {
+					playPauseGame();
+				}
+			}}
+			style={{ display: play ? 'block' : 'none' }}><BsPlayFill /></div>
+		<div onClick={() => {
+			playPauseGame();
+		}} onKeyDown={(event) => {
+				if (event.key === 'p') {
+					playPauseGame();
+				}
+			}}
+			style={{ display: play ? 'none' : 'block' }}><BsPauseFill /></div>
+		<div onClick={() => {
+			dispatch({ type: actionType.ClearArray });
+		}} onKeyDown={(event) => {
+				if (event.key === 'x') {
+					dispatch({ type: actionType.ClearArray });
+				}
+			}}
+		><AiOutlineClose /></div>
 	</Container>);
 }
