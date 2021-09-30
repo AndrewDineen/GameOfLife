@@ -1,5 +1,4 @@
 {
-  "homepage": "http://AndrewDineen.github.io/GameOfLife",
   "name": "game-of-life",
   "version": "1.0.0",
   "private": true,
@@ -9,6 +8,7 @@
     "gatsby"
   ],
   "scripts": {
+    "deploy":"gatsby build --prefix-paths && gh-pages -d public" ,
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
